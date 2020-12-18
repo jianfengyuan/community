@@ -28,6 +28,8 @@ public interface CommunityConstant {
     String TOPIC_COMMENT = "comment";
     // 關注事件
     String TOPIC_FOLLOW = "follow";
+    // 发帖事件
+    String TOPIC_PUBLISH = "publish";
     // 系統userID
     int SYSTEM_ID = 1;
 

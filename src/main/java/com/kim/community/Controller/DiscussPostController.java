@@ -1,10 +1,8 @@
 package com.kim.community.Controller;
 
 import com.kim.community.Annotation.LoginRequired;
-import com.kim.community.Entity.Comment;
-import com.kim.community.Entity.DiscussPost;
-import com.kim.community.Entity.Page;
-import com.kim.community.Entity.User;
+import com.kim.community.Entity.*;
+import com.kim.community.Event.EventProducer;
 import com.kim.community.Service.CommentService;
 import com.kim.community.Service.DiscussPostService;
 import com.kim.community.Service.LikeService;
@@ -40,6 +38,9 @@ public class DiscussPostController implements CommunityConstant {
     @Autowired
     private LikeService likeService;
 
+    @Autowired
+    private EventProducer producer;
+
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
     @LoginRequired
@@ -54,6 +55,13 @@ public class DiscussPostController implements CommunityConstant {
         post.setUserId(Integer.toString(user.getId()));
         post.setCreateTime(new Date());
         discussPostService.addDiscussPost(post);
+        // 触发发帖事件
+        Event event = new Event().setTopic(TOPIC_PUBLISH)
+                .setUserId(user.getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(post.getId());
+        producer.fileEvent(event);
+
         return CommunityUtil.getJsonString(200, "發佈成功");
     }
 

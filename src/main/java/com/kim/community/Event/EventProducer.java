@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventProducer {
     @Autowired
-    KafkaTemplate template;
+    KafkaTemplate kafkaTemplate;
 
     public void fileEvent(Event event) {
-        template.send(event.getTopic(), JSONObject.toJSONString(event));
+        kafkaTemplate.send(event.getTopic(), JSONObject.toJSONString(event));
     }
 }

@@ -42,6 +42,7 @@
         where status != 2
         AND from_id != 1
         AND conversation_id = #{conversationId}
+        ORDER BY create_time DESC
         limit #{offset}, #{limit}
     </select>
 
@@ -105,6 +106,19 @@
         WHERE status = 0
         AND from_id = 1
         AND to_id = #{userId}
+        <if test="topic!=null">
+            AND conversation_id=#{topic}
+        </if>
+    </select>
 
+    <select id="selectNotices" resultType="Message">
+        SELECT <include refid="selectFields"></include>
+        FROM message
+        where status != 2
+        AND from_id = 1
+        AND to_id = #{userId}
+        AND conversation_id = #{conversationId}
+        ORDER BY create_time DESC
+        limit #{offset}, #{limit}
     </select>
 </mapper>

@@ -33,7 +33,7 @@ public class MessageService {
         return messageMapper.selectLetterCount(conversationId);
     }
 
-    public int findLetterUnreadCount(int userId ,String conversationId) {
+    public int findLetterUnreadCount(int userId, String conversationId) {
         return messageMapper.selectLetterUnreadCount(userId, conversationId);
     }
 
@@ -61,7 +61,13 @@ public class MessageService {
     public int findUnreadNoticeCount(int userId, String topic) {
         return messageMapper.selectUnreadNoticeCount(topic, userId);
     }
+
     public int findUnreadNoticeCount(int userId) {
         return messageMapper.selectUnreadNoticeCount(null, userId);
     }
+
+    public List<Message> findNotices(int userId, String topic, int offset, int limit) {
+        return messageMapper.selectNotices(userId, topic, offset, limit);
+    }
+
 }

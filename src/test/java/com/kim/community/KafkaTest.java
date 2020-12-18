@@ -1,5 +1,6 @@
 package com.kim.community;
 
+import com.kim.community.Service.MessageService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,10 +20,13 @@ public class KafkaTest {
     KafkaProducer producer;
     @Autowired
     KafkaConsumer consumer;
+    @Autowired
+    MessageService messageService;
     @Test
     public void testKafka() {
         producer.sendMessage("test", "你好");
         producer.sendMessage("test", "在嗎");
+//        System.out.println(messageService.findNoticeCount(111, "like"));
         try {
             Thread.sleep(1000 * 10);
         } catch (Exception e) {

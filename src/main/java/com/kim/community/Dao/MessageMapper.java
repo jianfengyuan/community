@@ -31,4 +31,6 @@ public interface MessageMapper {
     int selectNoticeCount(String topic, int userId);
 
     int selectUnreadNoticeCount(String topic, int userId);
+
+    List<Message> selectNotices(int userId, String conversationId, int offset, int limit);
 }
